@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'lsg-coding-test-angular';
+
+  public date: moment.Moment;
+  public time: { hour: number, minute: number };
+
+  public constructor() {
+    this.date = moment();
+    this.time = {
+      hour: this.date.hours(),
+      minute: this.date.minutes()
+    };
+  }
 }
