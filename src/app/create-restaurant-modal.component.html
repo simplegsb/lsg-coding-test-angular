@@ -1,0 +1,51 @@
+<!--<form>-->
+  <div class="modal-header">
+    <h4 class="modal-title">Add Restaurant</h4>
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="activeModal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"
+               id="name"
+               class="form-control"
+               placeholder="Gaza's really fast restaurant"
+               [(ngModel)]="restaurant.name">
+      </div>
+    <h5>Opening Hours</h5>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Opening Time</th>
+            <th scope="col">Closing Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let openingHours of restaurant.openingHours">
+            <td>{{getDay(openingHours.dayOfTheWeek)}}</td>
+            <td><ngb-timepicker [(ngModel)]="openingHours.openingTime"
+                                [meridian]="true"
+                                [spinners]="false">
+            </ngb-timepicker></td>
+            <td><ngb-timepicker [(ngModel)]="openingHours.closingTime"
+                                [meridian]="true"
+                                [spinners]="false">
+            </ngb-timepicker></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-dark"
+            (click)="save()">
+      Save
+    </button>
+  </div>
+<!--</form>-->

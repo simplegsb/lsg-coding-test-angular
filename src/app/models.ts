@@ -7,7 +7,6 @@ export interface OpeningHours {
 export interface Restaurant {
   name: string;
   openingHours: OpeningHours[];
-  openingHoursText: string[];
 }
 
 export interface TimeOfDay {

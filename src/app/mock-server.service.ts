@@ -24,13 +24,19 @@ export class Server {
   public constructor(private http: HttpClient) {
   }
 
+  public createRestaurant(restaurant: Restaurant): Observable<Restaurant> {
+    this.restaurants.push(restaurant);
+    return of(restaurant);
+  }
+
   public getRestaurants(): Observable<Restaurant[]> {
     if (!this.restaurants) {
       // Concurrent calls to this function could result in multiple "loads" but since this is just a mock server it isn't a big deal.
-      return this.loadRestaurants();
+      return this.loadRestaurants()
+        .pipe(map(() => this.restaurants.slice()));
     }
 
-    return of(this.restaurants);
+    return of(this.restaurants.slice());
   }
 
   private loadRestaurants(): Observable<Restaurant[]> {
@@ -48,8 +54,7 @@ export class Server {
     for (const restaurantData of restaurantsData.restaurants) {
       restaurants.push({
         name: restaurantData.name,
-        openingHours: this.parseAllOpeningHours(restaurantData.opening_hours),
-        openingHoursText: restaurantData.opening_hours.split(';').map(openingHours => openingHours.trim())
+        openingHours: this.parseAllOpeningHours(restaurantData.opening_hours)
       });
     }
 

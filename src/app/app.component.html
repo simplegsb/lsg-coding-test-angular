@@ -1,10 +1,14 @@
 <nav class="navbar">
   <span class="navbar-brand">Lightspeed Restaurants</span>
 
-  <button type="button" class="btn btn-outline-secondary">Add Restaurant</button>
+  <button type="button"
+          class="btn btn-outline-secondary"
+          (click)="add()">
+    Add Restaurant
+  </button>
 </nav>
 
-<div class="container-fluid">
+<div class="container-fluid mt-4 mb-4">
   <div class="form-row align-items-center">
     <div class="col-auto">
       When would you like to eat?
@@ -26,7 +30,10 @@
       </div>
     </div>
     <div class="col-auto">
-      <ngb-timepicker [(ngModel)]="time" [meridian]="true"></ngb-timepicker>
+      <ngb-timepicker [(ngModel)]="time"
+                      [meridian]="true"
+                      [spinners]="false">
+      </ngb-timepicker>
     </div>
     <div class="col-auto">
       <button type="button" class="btn btn-primary">Search</button>
@@ -42,11 +49,11 @@
           <div class="card-header">{{restaurant.name}}</div>
           <div class="card-body">
             <h5 class="card-title">Opening Hours</h5>
-            <p *ngFor="let openingHoursText of restaurant.openingHoursText" class="card-text">{{openingHoursText}}</p>
+            <p *ngFor="let openingHoursText of getOpeningHoursText(restaurant.openingHours)" class="card-text">{{openingHoursText}}</p>
           </div>
         </div>
       </div>
-      <div *ngIf="i == restaurants.length - 1" class="w-50"></div>
+      <div *ngIf="!(i % 2) && i == restaurants.length - 1" class="w-50"></div>
       <div *ngIf="i % 2" class="w-100"></div>
     </ng-container>
   </div>
