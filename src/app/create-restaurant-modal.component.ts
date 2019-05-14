@@ -34,6 +34,6 @@ export class CreateRestaurantModalComponent {
 
   public save() {
     this.server.createRestaurant(this.restaurant)
-      .subscribe((restaurant) => this.activeModal.close(restaurant));
+      .subscribe(restaurant => this.activeModal.close(restaurant));
   }
 }

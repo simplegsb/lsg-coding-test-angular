@@ -20,20 +20,27 @@ export class AppComponent {
 
   public constructor(private modalService: NgbModal,
                      private server: Server) {
-    this.date = moment();
-    this.time = { hour: this.date.hours(), minute: this.date.minutes() };
+    this.getRestaurants();
+  }
 
-    this.server.getRestaurants()
-      .subscribe((restaurants) => this.restaurants = restaurants);
+  public getRestaurants() {
+    this.server.getRestaurants(this.date, this.time)
+      .subscribe(restaurants => this.restaurants = restaurants);
   }
 
   public add(): void {
     this.modalService.open(CreateRestaurantModalComponent, { size: 'lg' }).result
-      .then((restaurant) => {
+      .then(restaurant => {
         if (restaurant) {
           this.restaurants.push(restaurant);
         }
       });
+  }
+
+  public clearSearch() {
+    this.date = undefined;
+    this.time = undefined;
+    this.getRestaurants();
   }
 
   public getOpeningHoursText(allOpeningHours: OpeningHours[]): string[] {
