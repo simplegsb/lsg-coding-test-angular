@@ -1,4 +1,4 @@
-<!--<form>-->
+<form #form="ngForm" (ngSubmit)="submit(form)">
   <div class="modal-header">
     <h4 class="modal-title">Add Restaurant</h4>
     <button type="button"
@@ -13,9 +13,18 @@
         <label for="name">Name</label>
         <input type="text"
                id="name"
+               name="name"
                class="form-control"
                placeholder="Gaza's really fast restaurant"
-               [(ngModel)]="restaurant.name">
+               required
+               [(ngModel)]="restaurant.name"
+               #nameControl="ngModel">
+        <div *ngIf="nameControl.invalid && (nameControl.dirty || nameControl.touched || form.submitted)"
+             class="alert alert-danger m-1">
+          <div *ngIf="nameControl.errors.required">
+            Name is required.
+          </div>
+        </div>
       </div>
     <h5>Opening Hours</h5>
       <table class="table table-striped">
@@ -29,23 +38,46 @@
         <tbody>
           <tr *ngFor="let openingHours of restaurant.openingHours">
             <td>{{getDay(openingHours.dayOfTheWeek)}}</td>
-            <td><ngb-timepicker [(ngModel)]="openingHours.openingTime"
-                                [meridian]="true"
-                                [spinners]="false">
-            </ngb-timepicker></td>
-            <td><ngb-timepicker [(ngModel)]="openingHours.closingTime"
-                                [meridian]="true"
-                                [spinners]="false">
-            </ngb-timepicker></td>
+            <td>
+              <ngb-timepicker name="openingTime{{openingHours.dayOfTheWeek}}"
+                              required
+                              [(ngModel)]="openingHours.openingTime"
+                              [meridian]="true"
+                              [spinners]="false"
+                              #openingControl="ngModel">
+              </ngb-timepicker>
+
+              <div *ngIf="openingControl.invalid && (openingControl.dirty || openingControl.touched || form.submitted)"
+                   class="alert alert-danger m-1">
+                <div *ngIf="openingControl.errors.required">
+                  Opening time is required.
+                </div>
+              </div>
+            </td>
+            <td>
+              <ngb-timepicker name="closingTime{{openingHours.dayOfTheWeek}}"
+                              required
+                              [(ngModel)]="openingHours.closingTime"
+                              [meridian]="true"
+                              [spinners]="false"
+                              #closingControl="ngModel">
+              </ngb-timepicker>
+
+              <div *ngIf="closingControl.invalid && (closingControl.dirty || closingControl.touched || form.submitted)"
+                   class="alert alert-danger m-1">
+                <div *ngIf="closingControl.errors.required">
+                  Closing time is required.
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
   </div>
   <div class="modal-footer">
-    <button type="button"
-            class="btn btn-outline-dark"
-            (click)="save()">
+    <button type="submit"
+            class="btn btn-outline-dark">
       Save
     </button>
   </div>
-<!--</form>-->
+</form>

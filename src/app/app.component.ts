@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
@@ -37,9 +38,11 @@ export class AppComponent {
       });
   }
 
-  public clearSearch() {
-    this.date = undefined;
-    this.time = undefined;
+  public submitSearch(form: NgForm) {
+    if (!form.valid) {
+      return;
+    }
+
     this.getRestaurants();
   }
 

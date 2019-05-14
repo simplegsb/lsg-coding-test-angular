@@ -8,45 +8,69 @@
   </button>
 </nav>
 
-<div class="container-fluid mt-4 mb-4">
-  <div class="form-row align-items-center">
-    <div class="col-auto">
-      When would you like to eat?
+<form #form="ngForm" (ngSubmit)="submitSearch(form)">
+  <div class="container-fluid mt-4 mb-4">
+    <div class="form-row align-items-center">
+      <div class="col-auto">
+        When would you like to eat?
+      </div>
+      <div class="col-auto">
+        <div class="input-group">
+          <input ngbDatepicker
+                 name="date"
+                 class="form-control"
+                 placeholder="yyyy-mm-dd"
+                 required
+                 [(ngModel)]="date"
+                 #dateControl="ngModel"
+                 #datePicker="ngbDatepicker">
+          <div class="input-group-append">
+            <button type="button"
+                    class="btn btn-outline-secondary calendar"
+                    (click)="datePicker.toggle()">
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-auto">
+        <ngb-timepicker name="time"
+                        required
+                        [(ngModel)]="time"
+                        [meridian]="true"
+                        [spinners]="false"
+                        #timeControl="ngModel">
+        </ngb-timepicker>
+      </div>
+      <div class="col-auto">
+        <button type="submit"
+                class="btn btn-primary">
+          Search
+        </button>
+      </div>
+      <div class="col-auto">
+        <button type="button"
+                class="btn btn-outline-secondary"
+                (click)="form.resetForm(); getRestaurants()">
+          Clear Search
+        </button>
+      </div>
     </div>
-    <div class="col-auto">
-      <div class="input-group">
-        <input ngbDatepicker
-               name="dp"
-               class="form-control"
-               placeholder="yyyy-mm-dd"
-               [(ngModel)]="date"
-               #datePicker="ngbDatepicker">
-        <div class="input-group-append">
-          <button type="button"
-                  class="btn btn-outline-secondary calendar"
-                  (click)="datePicker.toggle()">
-          </button>
+    <div class="form-row">
+      <div *ngIf="dateControl.invalid && (dateControl.dirty || dateControl.touched || form.submitted)"
+           class="alert alert-danger m-1">
+        <div *ngIf="dateControl.errors.required">
+          Date is required.
+        </div>
+      </div>
+      <div *ngIf="timeControl.invalid && (timeControl.dirty || timeControl.touched || form.submitted)"
+           class="alert alert-danger m-1">
+        <div *ngIf="timeControl.errors.required">
+          Time is required.
         </div>
       </div>
     </div>
-    <div class="col-auto">
-      <ngb-timepicker [(ngModel)]="time"
-                      [meridian]="true"
-                      [spinners]="false">
-      </ngb-timepicker>
-    </div>
-    <div class="col-auto">
-      <button type="button"
-              class="btn btn-primary"
-              (click)="getRestaurants()">Search</button>
-    </div>
-    <div class="col-auto">
-      <button type="button"
-              class="btn btn-outline-secondary"
-              (click)="clearSearch()">Clear Search</button>
-    </div>
   </div>
-</div>
+</form>
 
 <div class="container">
   <div class="row">
