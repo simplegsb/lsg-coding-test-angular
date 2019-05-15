@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
-import {Server} from './mock-server.service';
+import { ServerService } from './mock-server.service';
 import { Restaurant } from './models';
 
 @Component({
@@ -14,7 +14,7 @@ export class CreateRestaurantModalComponent {
   public restaurant: Restaurant;
 
   public constructor(public activeModal: NgbActiveModal,
-                     private server: Server) {
+                     private server: ServerService) {
     this.restaurant = {
       name: '',
       openingHours: [

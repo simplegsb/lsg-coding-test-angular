@@ -6,7 +6,7 @@ import { NgbDateAdapter, NgbDatepickerModule, NgbModalModule, NgbTimepickerModul
 
 import { AppComponent } from './app.component';
 import { NgbDateMomentAdapter } from './ngb-date-moment-adapter';
-import { Server } from './mock-server.service';
+import { ServerService } from './mock-server.service';
 import { CreateRestaurantModalComponent } from './create-restaurant-modal.component';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { CreateRestaurantModalComponent } from './create-restaurant-modal.compon
   providers: [
     { provide: NgbDateAdapter, useClass: NgbDateMomentAdapter },
 
-    Server
+    ServerService
   ],
   entryComponents: [
     CreateRestaurantModalComponent

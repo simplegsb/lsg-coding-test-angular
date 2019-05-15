@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 
-import { Server } from './mock-server.service';
+import { ServerService } from './mock-server.service';
 import { OpeningHours, Restaurant, TimeOfDay } from './models';
 import { CreateRestaurantModalComponent } from './create-restaurant-modal.component';
 
@@ -20,7 +20,7 @@ export class AppComponent {
   public time: TimeOfDay;
 
   public constructor(private modalService: NgbModal,
-                     private server: Server) {
+                     private server: ServerService) {
     this.getRestaurants();
   }
 
@@ -94,14 +94,14 @@ export class AppComponent {
       const openingTime = moment();
       openingTime.hours(start.openingTime.hour);
       openingTime.minutes(start.openingTime.minute);
-      openingHoursText += openingTime.format('hh:mma');
+      openingHoursText += openingTime.format('h:mma');
 
       openingHoursText += ' - ';
 
       const closingTime = moment();
       closingTime.hours(start.closingTime.hour);
       closingTime.minutes(start.closingTime.minute);
-      openingHoursText += closingTime.format('hh:mma');
+      openingHoursText += closingTime.format('h:mma');
 
       allOpeningHoursText.push(openingHoursText);
     }

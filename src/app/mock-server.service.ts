@@ -17,7 +17,7 @@ const ISO_DAYS_OF_THE_WEEK: Map<string, number> = new Map<string, number>([
 ]);
 
 @Injectable()
-export class Server {
+export class ServerService {
 
   private restaurants: Restaurant[];
 
@@ -25,8 +25,11 @@ export class Server {
   }
 
   public createRestaurant(restaurant: Restaurant): Observable<Restaurant> {
-    this.restaurants.push(restaurant);
-    return of(restaurant);
+    return this.getRestaurants()
+      .pipe(map(() => {
+        this.restaurants.push(restaurant);
+        return restaurant;
+      }));
   }
 
   public getRestaurants(date?: moment.Moment, time?: TimeOfDay): Observable<Restaurant[]> {
